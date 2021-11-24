@@ -3,8 +3,12 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <!-- hp.css = homepage css -->
     <link rel="stylesheet" type="text/css" 
           href="{% static 'css/hp.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <title>What's Up</title>
 </head>
 <body>
@@ -14,27 +18,29 @@
     </div>
     
     <div class="containery">
-        <div class="image">
-            {% load static %} <img src="{% static 'img/live-chat.jpg' %}">
+            <div class="image">
+                {% load static %} <img src="{% static 'img/live-chat.jpg' %}">
+            </div>
+            <div class="text">
+                <h2 style="color: #745195;">Have your</h2>
+                <h1 style="color: #FFC000">best chat</h1>
+                <div class="box">
+                <button class ="button button1" onclick="document.getElementById('id01').style.display='block'" style="width:150px;">Login</button>
+                <button class ="button button2" onclick="document.getElementById('id02').style.display='block'" style="width:150px;">Register</button>
+            </div>
+            </div>
+
         </div>
-        <div class="text">
-            <h2 style="color: #745195;">Have your</h2>
-            <h1 style="color: #FFC000">best chat</h1>
-            <div class="box">
-            <button class ="button button1" onclick="document.getElementById('id01').style.display='block'" style="width:150px;">Login</button>
-            <button class ="button button2" onclick="document.getElementById('id02').style.display='block'" style="width:150px;">Register</button>
-        </div>
-        </div>
-      </div>
-    <div class="footer">
-        <p>Footer</p>
     </div>
+    <footer>
+        <div class=" footer"></div>
+    </footer>
 
     
 
     <div id="id01" class="modal">
     
-    <form class="modal-content animate" action="enter_room_name" method="post"> {% csrf_token %}
+    <form class="modal-content animate" action="{% url 'login_request' %}" method="post"> {% csrf_token %}
 
         <div class="container">
         <label for="username"><b>Username</b></label>
@@ -55,7 +61,7 @@
     
 
     <div id="id02" class="modal-rg">
-    <form class="modal-content-rg" action="register" method="post"> {% csrf_token %}
+    <form class="modal-content-rg" action="{% url 'addRegister' %}" method="post"> {% csrf_token %}
         <div class="container-rg">
         <h1>Sign Up</h1>
         <p>Please fill in this form to create an account.</p>

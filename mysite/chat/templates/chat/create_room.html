@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/hp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu.css' %}">
+    <title>Create Room - What's Up</title>
+</head>
+<body>
+    <div class="header">
+        <div class="s1"><h1 class=font1>What's Up:</h1></div>
+        <div class="s2"><h1 class=font2>Live chat software</h1></div>
+        <div class="topnav">
+          <h3 style="color: #8c759f">{{ user.username }}</h3>
+          <a href="logout">logout</a>
+        </div>
+    </div>
+
+    <div class="center">
+        <h1 style="border-bottom: 1px solid silver;">Create new room</h1>
+        <form action="create_room" method="post">{% csrf_token %}
+          <div class="txt_field">
+            <input type="text" name="room_name" required>
+            <span></span>
+            <label>Enter room name</label>
+          </div>
+          
+          <div class="txt_field">
+            <input type="password" name="passward_room" required>
+            <span></span>
+            <label>Enter room password </label>
+            <span></span>
+          </div>
+          <input type="submit" name="create" value="Create">
+        </form>
+        <button class ="button cencelbtn" name="cancel"><a style="text-decoration:none;color: aliceblue;" href="enter_room">Cancel</a></button>
+      </div>
+
+      <div class="footer">
+      </div>
+</body>
+</html>

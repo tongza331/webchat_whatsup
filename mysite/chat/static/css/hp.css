@@ -6,11 +6,10 @@
 }
 .header {
   background-color: #461E64;
-  position: absolute;
+  position: fixed;
   top: 0;
-  left: 0;
-  right: 0;
   height: 150px; 
+  width: 100%;
 }
 .font1 {
   color: aliceblue;    
@@ -63,12 +62,14 @@ img {
 }
 .footer {
   position: fixed;
-  left: 0;
   bottom: 0;
+  left: 0;
+  right: 0;
   width: 100%;
   background-color:#745195;
-  color: #745195;
-  text-align: center;
+  min-height: 43px;
+  color :#745195;
+  padding: 40px;
 }
 .box {
   height: 30px;
@@ -90,6 +91,7 @@ input[type=text], input[type=password] {
   cursor: pointer;
   margin: 8px 0;
   width: 100%; 
+  font-size: 20px;
 }
 
 .button1 {
@@ -276,5 +278,8 @@ hr {
 @media screen and (max-width: 300px) {
   .cancelbtn-rg, .signupbtn {
      width: 100%;
+  }
+  .footer{
+    width: 100%;
   }
 }

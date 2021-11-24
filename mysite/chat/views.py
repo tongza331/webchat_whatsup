@@ -1,15 +1,18 @@
+from django.contrib import auth
 from django.http.response import HttpResponse
 from django.shortcuts import render,redirect
-from django.contrib.auth.models import User, auth
-from django.contrib.auth import authenticate
+from django.contrib.auth.models import User
 from .models import *
-
+from django.contrib.auth import login as django_login
+from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
 
 def homepage(request):
     return render(request,"chat/homepage.html")
 
 def index(request):
     return render(request,"chat/index.html")
+
 
 def addRegister(request):
     username=request.POST['username']
@@ -31,15 +34,23 @@ def login_request(request):
     password = request.POST['password']
     user = auth.authenticate(username=username,password=password)
     if user is not None:
-        auth.login(request,user)
+        django_login(request,user)
         print("login sucessfull.")
-        return render(request,'enter_room.html')
+        return redirect('enter_room')
     else:
         if not User.objects.create_user(username=username).exists():
             print("Username already exists.")
         else:
             print("Incorrect password.")
     return redirect('homepage')
+
+def logout(request):
+	auth.logout(request)
+	return redirect('/')
+
+@login_required
+def enter_room(request):
+    return render(request,"chat/enter_room.html")
 
 def room(request, room_name):
     username = request.GET.get('username','Anonymous')
