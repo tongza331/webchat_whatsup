@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" 
+          href="{% static 'css/hp.css' %}">
+    <title>What's Up</title>
+</head>
+<body>
+    <div class="header">
+        <div class="s1"><h1 class=font1>What's Up:</h1></div>
+        <div class="s2"><h1 class=font2>Live chat software</h1></div>
+    </div>
+    
+    <div class="containery">
+        <div class="image">
+            {% load static %} <img src="{% static 'img/live-chat.jpg' %}">
+        </div>
+        <div class="text">
+            <h2 style="color: #745195;">Have your</h2>
+            <h1 style="color: #FFC000">best chat</h1>
+            <div class="box">
+            <button class ="button button1" onclick="document.getElementById('id01').style.display='block'" style="width:150px;">Login</button>
+            <button class ="button button2" onclick="document.getElementById('id02').style.display='block'" style="width:150px;">Register</button>
+        </div>
+        </div>
+      </div>
+    <div class="footer">
+        <p>Footer</p>
+    </div>
+
+    
+
+    <div id="id01" class="modal">
+    
+    <form class="modal-content animate" action="enter_room_name" method="post"> {% csrf_token %}
+
+        <div class="container">
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+
+        <label for="passward"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+            
+        <button class="button button1" type="submit" name="login_user">Login</button>
+        </div>
+
+        <div class="container" style="background-color:#f1f1f1">
+        <button class ="button cencelbtn" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        </div>
+    </form>
+    </div>
+
+    
+
+    <div id="id02" class="modal-rg">
+    <form class="modal-content-rg" action="register" method="post"> {% csrf_token %}
+        <div class="container-rg">
+        <h1>Sign Up</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <label for="username"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" name="username" required>
+
+        <label for="email"><b>Email</b></label>
+        <input type="text" placeholder="Enter Email" name="email" required>
+
+        <label for="password_1"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password_1" required>
+
+        <label for="password_2"><b>Confirm Password</b></label>
+        <input type="password" placeholder="Confirm Password" name="password_2" required>
+
+        <div class="clearfix-rg">
+            <button class ="button signupbtn" type= "submit" class="signupbtn" name="reg_user">Sign Up</button>
+            <button class ="button cancelbtn-rg"type= "button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn-rg">Cancel</button>
+        </div>
+        </div>
+    </form>
+    </div>
+    
+    <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        var modal_rg = document.getElementById('id02');
+
+    // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal-rg) {
+            modal_rg.style.display = "none";
+        }
+    }
+    </script>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
