@@ -12,7 +12,7 @@
         <div>
             <textarea id="chat-log" cols="100" rows="20"></textarea><br> <!--Windows for chat-->
             <input id="chat-message-input" type="text" size="100"><br>
-            Your username: {{username}} <input id="chat-message-submit" type="button" value="Send">
+            Your username: {{username}} <input id="chat-message-submit" type="button" value="Send">&nbsp; &nbsp;<a href="{% url 'room_list' %}" type="button">Leave room</a>
             {{ room_name|json_script:"room-name" }}
             {{ username|json_script:"username" }}
         </div>

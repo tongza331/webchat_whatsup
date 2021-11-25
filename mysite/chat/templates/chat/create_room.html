@@ -22,11 +22,16 @@
 
     <div class="center">
         <h1 style="border-bottom: 1px solid silver;">Create new room</h1>
-        <form action="create_room" method="post">{% csrf_token %}
+        <form action="{% url 'create_new_room' %}" method="POST">{% csrf_token %}
           <div class="txt_field">
             <input type="text" name="room_name" required>
-            <span></span>
             <label>Enter room name</label>
+            <!--Show error message if room already exists -->
+            {% if messages %}
+              {% for message in messages %}
+                <span style="color: red;"><small>{{message}}</small></span><br>
+              {% endfor %}
+            {% endif %}
           </div>
           
           <div class="txt_field">
@@ -35,12 +40,10 @@
             <label>Enter room password </label>
             <span></span>
           </div>
-          <input type="submit" name="create" value="Create">
+          <input type="submit" value="Create">
         </form>
-        <button class ="button cencelbtn" name="cancel"><a style="text-decoration:none;color: aliceblue;" href="enter_room">Cancel</a></button>
+        <button class ="button cencelbtn" name="cancel"><a style="text-decoration:none;color: aliceblue;" href="myRoom">Cancel</a></button>
       </div>
 
-      <div class="footer">
-      </div>
 </body>
 </html>

@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!-- hp.css = homepage css -->
+    <link rel="stylesheet" type="text/css" 
+          href="{% static 'css/hp.css' %}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <title>What's Up</title>
+</head>
+<body>
+    <div>
+        <a href="EnterRoom">Enter Room Here.</a><br>
+        <a href="CreateNewRoom">Create Room Here.</a><br>
+        <a href="{% url 'logout' %}">logout</a><br>
+        {{user.username}} Room:<br>
+        {% for item in roomlistCreate %}
+            <a href="chatroom/{{item.room_name}}/{{user.username}}">{{item.room_name}}</a><br>
+        {% endfor %}
+    </div>
