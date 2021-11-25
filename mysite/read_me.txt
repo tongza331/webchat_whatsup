@@ -7,3 +7,8 @@
 1. Run $ redis-server
 If port already use pls type : sudo service redis-server stop
 
+
+## Keep ideas
+for i in range(len(c)):
+    if "gamer2" == c[i].room_name:
+        print(True)
