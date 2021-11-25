@@ -17,14 +17,23 @@ def addRegister(request):
     password_1=request.POST.get('password_1')
     password_2=request.POST.get('password_2')
 
-    user=User.objects.create_user(
-        username=username,
-        email=email,
-        password=password_1,
-    )
-    user.save()
-    print("user created")
-    return redirect('homepage')
+    ## validate if password is equal
+    if User.objects.filter(username=username).exists():
+        messages.error(request, "This username has already been taken!")
+        return redirect('homepage')
+    else:
+        if password_1==password_2:
+            userCreate=User.objects.create_user(
+                username=username,
+                email=email,
+                password=password_1,
+            )
+            userCreate.save()
+            print("user created")
+            return redirect('homepage')
+        else:
+            messages.error(request, "Password and Confirm password is not match.")
+            return redirect('homepage')
 
 def login_request(request):
     username = request.POST.get('username')
@@ -47,15 +56,18 @@ def logout(request):
 
 @login_required
 def enter_room(request):
+    ## if user enter new room who not create by yourself.
     return render(request,"chat/enter_room.html")
 
 def create_new_room(request):
+    ## if user create new room.
     if request.method=="POST":
         username = request.user
         room_name = request.POST.get('room_name')
         password_room = request.POST.get('passward_room')
         roomall = RoomCreate.objects.all()
         print(username,room_name,password_room)
+        ## check this room name is exist.
         for item in range(len(roomall)):
             if room_name == roomall[item].room_name:
                 messages.error(request, "This room name already exist.")
@@ -72,19 +84,30 @@ def create_new_room(request):
     return render(request,"chat/create_room.html")
 
 def room(request, room_name,username):
+    ## if enter room from enter_room.html use this method.
     if request.method=="POST":
         roomall = RoomCreate.objects.all()
         for item in range(len(roomall)):
             if room_name != roomall[item].room_name:
                 messages.error(request, "This room name does not exist.")
                 return redirect("enter_room")
+
+        ## if user never enter this room. it will save to RoomList
+        # roomCheck = RoomList.objects.all()
+
+    ## if enter room from your_room.html use this return.
     return render(request, 'chat/room.html', {
         'room_name': room_name,
         'username':username
     })
 
 def room_list(request):
+    ## show all room that user create.
     username = request.user
     print(username)
     roomlistCreate = RoomCreate.objects.filter(creater=username)
-    return render(request,"chat/your_room.html",{'roomlistCreate':roomlistCreate})
+    roomlistall = RoomList.objects.get(username_id=username.id)
+    roomlistJoined = roomlistall.room_joined.all()
+    return render(request,"chat/your_room.html",{'roomlistCreate':roomlistCreate,
+        'roomlistJoined':roomlistJoined
+    })

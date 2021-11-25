@@ -16,8 +16,12 @@
         <a href="EnterRoom">Enter Room Here.</a><br>
         <a href="CreateNewRoom">Create Room Here.</a><br>
         <a href="{% url 'logout' %}">logout</a><br>
-        {{user.username}} Room:<br>
+        <p>{{user.username}} Room:</p>
         {% for item in roomlistCreate %}
+            <a href="chatroom/{{item.room_name}}/{{user.username}}">{{item.room_name}}</a><br>
+        {% endfor %}
+        <p>Join other room:</p>
+        {% for item in roomlistJoined %}
             <a href="chatroom/{{item.room_name}}/{{user.username}}">{{item.room_name}}</a><br>
         {% endfor %}
     </div>
