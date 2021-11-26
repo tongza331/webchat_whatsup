@@ -7,6 +7,7 @@ from .models import *
 from django.contrib.auth import login as django_login
 from django.contrib.auth import authenticate
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 def homepage(request):
     return render(request,"chat/homepage.html")
@@ -65,41 +66,41 @@ def create_new_room(request):
         username = request.user
         room_name = request.POST.get('room_name')
         password_room = request.POST.get('passward_room')
-        roomall = RoomCreate.objects.all()
         print(username,room_name,password_room)
+
         ## check this room name is exist.
-        for item in range(len(roomall)):
-            if room_name == roomall[item].room_name:
-                messages.error(request, "This room name already exist.")
-                print("This room name already exist.")
-                return redirect("create_new_room")
-            else:
-                RoomCreate.objects.create(
+        if RoomCreate.objects.filter(room_name=room_name).exists():
+            print("This room name already exist.")
+            messages.error(request, "This room name already exist.")
+            return redirect("create_new_room")
+        ## check this room name is not exist.
+        else:
+            RoomCreate.objects.create(
                     creater = username,
                     room_name = room_name,
                     password_room = password_room
                 )
-                print("Create new room success.")
-                return redirect('room',room_name=room_name,username=username)
+            print("Create new room success.")
+            return redirect('room',room_name=room_name,username=username)
     return render(request,"chat/create_room.html")
 
 def room(request, room_name,username):
-    ## if enter room from enter_room.html use this method.
-    if request.method=="POST":
-        roomall = RoomCreate.objects.all()
-        for item in range(len(roomall)):
-            if room_name != roomall[item].room_name:
-                messages.error(request, "This room name does not exist.")
-                return redirect("enter_room")
-
-        ## if user never enter this room. it will save to RoomList
-        # roomCheck = RoomList.objects.all()
-
-    ## if enter room from your_room.html use this return.
-    return render(request, 'chat/room.html', {
-        'room_name': room_name,
-        'username':username
-    })
+    print(username,'in room')
+    ## check this room name is not exists
+    if not RoomCreate.objects.filter(room_name=room_name).exists():
+        messages.error(request, "This room name does not exist.")
+        return redirect("enter_room")     
+    else:
+        ## if user never enter this room. it will save to RoomList models
+        get_username = User.objects.get(username=username)
+        new_room = RoomCreate.objects.get(room_name=room_name)
+        userJoin = RoomList.objects.get(username_id=get_username.id)
+        if not userJoin.room_joined.filter(room_name=room_name).exists():
+            userJoin.room_joined.add(new_room)
+        return render(request, 'chat/room.html', {
+            'room_name': room_name,
+            'username':username
+        })
 
 def room_list(request):
     ## show all room that user create.
