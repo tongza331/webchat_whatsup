@@ -1,0 +1,32 @@
+.fontchatname {
+    font-size: 40px;
+    margin: 10px;
+}
+
+.chatname{
+  color: #745195;
+  display:inline-block;
+}
+
+.now {
+    font-size: 15px;
+    line-height: 0px;
+}
+
+.now1{
+  color: black;
+  display:inline-block;
+}
+
+.chat {
+    font-size: 18px;
+    line-height: 10px;
+    color: black;
+}
+
+textarea{
+    resize: none;
+    background-color: #E6DFED;
+    width: 60%;
+    outline: none;
+}

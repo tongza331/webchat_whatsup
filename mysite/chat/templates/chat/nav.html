@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lp_cre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/lp_en.css' %}">
+    <link rel="stylesheet" href="{% static 'css/menu_cre.css' %}">
+    <link rel="stylesheet" href="{% static 'css/my_room.css' %}">
+    <link rel="stylesheet" href="{% static 'css/create_room.css' %}">
+    <link rel="stylesheet" href="{% static 'css/room.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+
+    {% block script %}
+    {% endblock %} 
+    
+<body>
+    <div class="header">
+        <div class="s1"><h1 class=font1>What's Up:</h1></div>
+        <div class="s2"><h1 class=font2>Live chat software</h1></div>
+        <div class="topnav">
+          <h3 style="color: #8c759f">{{user.username}}</h3>
+          <a href="{% url 'logout' %}">logout</a>
+        </div>
+        <ul>
+            <li><a href="myRoom">My room</a></li>
+            <li><a href="CreateNewRoom">Create room</a></li>
+            <li><a href="EnterRoom">Enter room</a></li>
+        </ul>
+    </div>
+    
+    {% block sub_menu %}
+    {% endblock %}
+
+    {% block content %}
+    {% endblock %}
+</body>
+</html>

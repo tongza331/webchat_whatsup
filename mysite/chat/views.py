@@ -37,19 +37,24 @@ def addRegister(request):
             return redirect('homepage')
 
 def login_request(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = auth.authenticate(username=username,password=password)
-    if user is not None:
-        django_login(request,user)
-        print("login sucessfull.")
-        return redirect('room_list')
-    else:
-        if not User.objects.create_user(username=username).exists():
-            print("Username Doesn't Exist.")
-        else:
-            print("Incorrect password.")
-    return redirect('homepage')
+	if request.method=='POST':
+		username = request.POST['username']
+		password = request.POST['password']
+		user = auth.authenticate(username=username,password=password)
+		if user is not None:
+			django_login(request,user)
+			messages.success(request, f" Hello {username}, You Are Successfully Logged In")
+			return redirect('room_list')
+		else:
+			if not User.objects.filter(username=username).exists():
+				messages.error(request, "Username Doesn't Exist")
+				return render(request,'chat/homepage.html',{'message3':"Username Doesn't Exist."})
+				
+			else:
+				messages.info(request, "Incorrect Password")
+				return render(request,'chat/homepage.html',{'message4':"Incorrect Password."})
+	else:
+		return render(request,'homepage.html')
 
 def logout(request):
 	auth.logout(request)
@@ -86,29 +91,49 @@ def create_new_room(request):
 
 def room(request, room_name,username):
     print(username,'in room')
+    msg = Message.objects.filter(roomname_msg=room_name)[0:25]
+
     ## check this room name is not exists
     if not RoomCreate.objects.filter(room_name=room_name).exists():
         messages.error(request, "This room name does not exist.")
         return redirect("enter_room")     
     else:
-        ## if user never enter this room. it will save to RoomList models
         get_username = User.objects.get(username=username)
         new_room = RoomCreate.objects.get(room_name=room_name)
-        userJoin = RoomList.objects.get(username_id=get_username.id)
-        if not userJoin.room_joined.filter(room_name=room_name).exists():
-            userJoin.room_joined.add(new_room)
-        return render(request, 'chat/room.html', {
+        ## if user never enter this room. it will save to RoomList models
+        try:         
+            userJoin = RoomList.objects.get(username_id=get_username.id)
+            if not userJoin.room_joined.filter(room_name=room_name).exists():
+                userJoin.room_joined.add(new_room)
+        except RoomList.DoesNotExist:
+            ## Create this username in RoomList Models after that will save in M:M field
+            addList = RoomList.objects.create(username_id=get_username.id)
+            addList.room_joined.add(new_room)
+            addList.save()
+            return render(request, 'chat/room.html', {
             'room_name': room_name,
-            'username':username
+            'username':username,
+            'msg':msg
         })
+        return render(request, 'chat/room.html', {
+                'room_name': room_name,
+                'username':username,
+                'msg':msg
+            })
+        
 
 def room_list(request):
     ## show all room that user create.
     username = request.user
     print(username)
     roomlistCreate = RoomCreate.objects.filter(creater=username)
-    roomlistall = RoomList.objects.get(username_id=username.id)
-    roomlistJoined = roomlistall.room_joined.all()
+    try: 
+        roomlistall = RoomList.objects.get(username_id=username.id)
+        roomlistJoined = roomlistall.room_joined.all()
+
+    except RoomList.DoesNotExist:
+        roomlistJoined = None
+    
     return render(request,"chat/your_room.html",{'roomlistCreate':roomlistCreate,
         'roomlistJoined':roomlistJoined
     })

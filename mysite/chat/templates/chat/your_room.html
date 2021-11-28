@@ -1,30 +1,21 @@
-{% load static %}
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <!-- hp.css = homepage css -->
-    <link rel="stylesheet" type="text/css" 
-          href="{% static 'css/hp.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <title>What's Up</title>
-</head>
+{% extends 'chat/nav.html' %}
+{% block content %}
 <body>
-    <div>
-        <a href="EnterRoom">Enter Room Here.</a><br>
-        <a href="CreateNewRoom">Create Room Here.</a><br>
-        <a href="{% url 'logout' %}">logout</a><br>
-        <!--My create room-->
-        <p>{{user.username}} Room:</p>
-        {% for item in roomlistCreate %}
-            <a href="chatroom/{{item.room_name}}/{{user.username}}">{{item.room_name}}</a><br>
-        {% endfor %}
-        
-        <!--My enter room-->
-        <p>Join other room:</p>
-        {% for item in roomlistJoined %}
-            <a href="chatroom/{{item.room_name}}/{{user.username}}">{{item.room_name}}</a><br>
-        {% endfor %}
+    <div class="contain">
+    <!--My create room-->
+    <div class="s3"><h2>My create room</h2></div><br>
+    {% for item in roomlistCreate %}
+        <button class="btn"><a href="chatroom/{{item.room_name}}/{{user.username}}" class="btn" style="width:150px;">{{item.room_name}}</a></button>
+    {% endfor %}
+    
+    <!--My enter room-->
+    <div class="s4"><h2>My enter room</h2></div><br>
+    {% for item in roomlistJoined %}
+    <button class="btn"><a href="chatroom/{{item.room_name}}/{{user.username}}" class="btn" style="width:150px;">{{item.room_name}}</a></button>
+    {% endfor %}
     </div>
+    
+    <div class="footer">
+    </div>
+</body>
+{% endblock %}

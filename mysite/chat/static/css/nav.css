@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+*{
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.header {
+  background-color: #461E64;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 125px;
+  width: 100%;
+}
+.font1 {
+  color: aliceblue;    
+  font-size: 40px;
+  margin-top: 10px;
+}
+.font2 {
+  color: #8c759f;
+  font-size: 25px;
+}
+.s1{
+    margin-top: 16px;
+    margin-left: 20px;
+    color: aliceblue;
+    display:inline-block;
+    }
+  .s2 {
+    margin-left: 5px;
+    color: #8c759f;
+    display:inline-block;
+  }
+
+ul {
+    list-style-type: none;
+    margin-top: 10px;
+    padding: 0;
+    overflow: hidden;
+    background-color: #745195;
+  }
+  
+  li {
+    float: left;
+  }
+  
+  li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+  
+  li a:hover:not(.active) {
+    opacity: 0.8;
+  }
+  
+  .active {
+    background-color: #461E64;
+    color: white;
+  }
+
+  @media screen and (min-width: 500px) and (max-width: 750px) {
+    .font1{
+      font-size: 30px;
+      margin-top: 10px;
+    }
+    .font2{
+      font-size: 20px;
+      margin: -10px 17px;
+    }
+    .s2{
+      display: flex;
+    }
+    ul {
+        margin-top: 42px;
+    }
+  }
+
+  @media screen and (min-width: 750px) and (max-width: 830px){
+    .font1{
+      font-size: 30px;
+      margin-top: 10px;
+    }
+    .font2{
+      font-size: 20px;
+      margin: -10px 17px;
+    }
+    .s2{
+      display: flex;
+    }
+    ul {
+        margin-top: 50px;
+    }
+  }
+
+  @media screen and (min-width: 830px){
+    ul {
+        margin-top: 30px;
+    }
+}

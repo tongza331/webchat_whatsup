@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&family=Poppins:wght@400;500;600&display=swap');
+*{
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+.header {
+  background-color: #461E64;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 125px;
+  width: 100%;
+}
+.font1 {
+  color: aliceblue;    
+  font-size: 40px;
+}
+.font2 {
+  color: #8c759f;
+  font-size: 25px;
+}
+.s1{
+    margin-top: 16px;
+    margin-left: 20px;
+    color: aliceblue;
+    display:inline-block;
+}
+.s2 {
+    margin-left: 5px;
+    color: #8c759f;
+    display:inline-block;
+}
+
+.contain{
+  width: 100%;
+  padding: 0px 80px;
+}
+
+.btn{
+  border: none;
+  padding: 20px 20px;
+  cursor: pointer;
+  margin: -10px 20px 30px;
+  font-size: 20px;
+  background-color: #745195;
+  color: white;
+  text-align: center;
+  width: 290px;
+}
+
+.s3{
+  margin-top: 200px;
+  color: #8c759f;
+  font-weight: bold;
+  font-size: 25px;
+}
+  
+.s4{
+  margin-top: -9px;
+  color: #8c759f;
+  font-weight: bold;
+  font-size: 25px;  
+}
+
+a:link{
+  text-decoration: none;
+}
+
+input[type="button"]{
+  width: 9%;
+  height: 50px;
+  border: 1px solid;
+  background: #745195;
+  border-radius: 15px;
+  font-size: 18px;
+  color: #e9f4fb;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+}
+input[type="button"]:hover{
+  border-color: #745195;
+  transition: .5s;
+}
+  
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background-color:#745195;
+    color :#745195;
+    height: 30px;
+  }
+  @media screen and (max-width: 300px) {
+    .cancelbtn-rg, .signupbtn {
+       width: 100%;
+    }
+    .footer{
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 750px) {
+  .font1{
+    font-size: 30px;
+    margin-top: 10px;
+  }
+  .font2{
+    font-size: 20px;
+    margin: -10px 17px;
+  }
+  .s2{
+    display: flex;
+  }
+  }

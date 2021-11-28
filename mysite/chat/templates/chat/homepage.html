@@ -3,38 +3,29 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <!-- hp.css = homepage css -->
     <link rel="stylesheet" type="text/css" 
-          href="{% static 'css/hp.css' %}">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+          href="{% static 'css/create_room.css' %}">
     <title>What's Up</title>
 </head>
 <body>
     <div class="header">
-        <div class="s1"><h1 class=font1>What's Up:</h1></div>
+        <div class="s1" style="margin-top: 10px;"><h1 class=font1>What's Up:</h1></div>
         <div class="s2"><h1 class=font2>Live chat software</h1></div>
     </div>
-    
     <div class="containery">
-            <div class="image">
-                {% load static %} <img src="{% static 'img/live-chat.jpg' %}">
-            </div>
-            <div class="text">
-                <h2 style="color: #745195;">Have your</h2>
-                <h1 style="color: #FFC000">best chat</h1>
-                <div class="box">
-                <button class ="button button1" onclick="document.getElementById('id01').style.display='block'" style="width:150px;">Login</button>
-                <button class ="button button2" onclick="document.getElementById('id02').style.display='block'" style="width:150px;">Register</button>
-            </div>
-            </div>
-
+        <div class="image">
+            {% load static %} <img src="{% static 'img/live-chat.jpg' %}">
         </div>
-    </div>
-    <footer>
-        <div class=" footer"></div>
-    </footer>
+        <div class="text">
+            <h2 style="color: #745195;">Have your</h2>
+            <h1 style="color: #FFC000">best chat</h1>
+            <div class="box">
+            <button class ="button button1" onclick="document.getElementById('id01').style.display='block'" style="width:150px;">Login</button>
+            <button class ="button button2" onclick="document.getElementById('id02').style.display='block'" style="width:150px;">Register</button>
+        </div>
+        </div>
+      </div>
+    <div class="footer"></div>
 
     
 
@@ -45,15 +36,17 @@
         <div class="container">
         <label for="username"><b>Username</b></label>
         <input type="text" placeholder="Enter Username" name="username" required>
+        <span style= "color: red;"><small>{{message3}}</small></span>
 
         <label for="passward"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="password" required>
+        <span style= "color: red;"><small>{{message4}}</small></span>
             
-        <button class="button button1" type="submit" name="login_user">Login</button>
+        <button class="button button1" type="submit" name="login_user" style="font-weight: 700;">Login</button>
         </div>
 
         <div class="container" style="background-color:#f1f1f1">
-            <button class ="button cencelbtn" type= "button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button class ="button cencelbtn" type= "button" onclick="document.getElementById('id01').style.display='none'" style="width: 100%;margin: 0px 0px;border-radius: 0px;font-size: 20px;height: 58px;" class="cancelbtn">Cancel</button>
         </div>
     </form>
     </div>
@@ -73,6 +66,7 @@
             <span style="color: red;"><small>{{message}}</small></span><br>
             {% endfor %}
         {% endif %}
+
         <label for="email"><b>Email</b></label>
         <input type="text" placeholder="Enter Email" name="email" required>
 
@@ -81,15 +75,15 @@
 
         <label for="password_2"><b>Confirm Password</b></label>
         <input type="password" placeholder="Confirm Password" name="password_2" required>
-        <!--Show error message if password not match -->
         {% if messages %}
             {% for message in messages %}
             <span style="color: red;"><small>{{message}}</small></span><br>
             {% endfor %}
         {% endif %}
+
         <div class="clearfix-rg">
             <button class ="button signupbtn" type= "submit" class="signupbtn" name="reg_user">Sign Up</button>
-            <button class ="button cancelbtn-rg"type= "button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn-rg">Cancel</button>
+            <button class ="button cancelbtn-rg" type= "button" onclick="document.getElementById('id02').style.display='none'" class="cancelbtn-rg">Cancel</button>
         </div>
         </div>
     </form>

@@ -1,0 +1,65 @@
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: #461E64;
+  overflow: hidden;
+  margin-left: 50%;
+  display: inline-flex;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {color: #f2f2f2;text-align: center;margin: 20px 20px;text-decoration: none;font-size: 17px;display: flex;}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+background-color: #ddd;
+color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+background-color: #04AA6D;
+color: white;
+}
+@media screen and (max-width: 830px) and (min-width: 500px) {
+  .topnav {
+    display: flex;
+    margin: -20px 25px;
+  }
+}
+
+@media screen and (min-width: 1060px) {
+  .topnav {
+    margin-left: 80%;
+    margin-top: -85px;
+    display: flex;
+    margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 1060px) {
+  .topnav {
+    margin-left: 70%;
+    margin-top: -85px;
+    display: flex;
+    margin-right: 10px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 750px) {
+  .topnav {
+    margin-left: 65%;
+    margin-top: -65px;
+    display: flex;
+    margin-right: 10px;
+    }
+}
+
+@media screen and (min-width: 500px) and (max-width: 600px) {
+  .topnav {
+    margin-left: 55%;
+    margin-top: -65px;
+    display: flex;
+    margin-right: 10px;
+    }
+}
+
