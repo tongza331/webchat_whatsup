@@ -9,6 +9,7 @@
             <textarea class="chat" id="chat-log" cols="100" rows="30" readonly>
             {% for m in msg %}
             {{ m.username }}: {{ m.content }}
+            
             {% endfor %}
             </textarea><br> <!--Windows for chat-->
             <input id="chat-message-input" type="text" size="100" placeholder="Enter your message" style="width: 50%; margin-bottom: 5px;">

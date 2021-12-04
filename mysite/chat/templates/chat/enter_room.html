@@ -5,30 +5,32 @@
       <div class="ls1"><h1 style="text-align: center;">Welcome to</h1></div>
       <div class="ls2"><h1 style="text-align: center;">What's Up</h1></div>
       <center>
-          <div class="txt_field">
-            <input id="username-input" type="hidden" value="{{ user.username }}" readonly>
-            <input id="room-name-input" type="text" style="width: 90%;" placeholder="Enter room name" required><br>
-			<span></span>
-            <!--Show error message if room does not exists -->
-            {% if messages %}
-              {% for message in messages %}
-                <span style="color: red;"><small>{{message}}</small></span><br>
-              {% endfor %}
-            {% endif %}
-          </div>
-          <div class="txt_field">
-            <input type="password" name="passward_room" style="width: 90%;" placeholder="Password" required>
-			<span></span>
-			<span></span>
-          </div>
-          <input type="submit" id="room-name-submit" style="width: 90%;" value="Go">
+        <form action="{% url 'enter_room' %}" method="POST"> {% csrf_token %}
+            <div class="txt_field">
+              <input id="username-input" type="hidden" value="{{ user.username }}" readonly>
+              <input id="room-name-input" name="roomname" type="text" style="width: 90%;" placeholder="Enter room name" required><br>
+        <span></span>
+              <!--Show error message if room does not exists -->
+              {% if messages %}
+                {% for message in messages %}
+                  <span style="color: red;"><small>{{message}}</small></span><br>
+                {% endfor %}
+              {% endif %}
+            </div>
+            <div class="txt_field">
+              <input type="password" name="passwardroom" style="width: 90%;" placeholder="Password" required>
+        <span></span>
+        <span></span>
+            </div>
+            <input type="submit" id="room-name-submit" style="width: 90%;" value="Go">
+          </form>
       </center>
           <div class="signup_link">
             Not a room? <a href="CreateNewRoom">Create new room</a>
           </div>
       </div>
 
-	  <script>
+	  <!-- <script>
 		document.querySelector('#room-name-input').focus();
 		document.querySelector('#room-name-input').onkeyup = function(e) {
 			if (e.keyCode === 13) {  // enter, return
@@ -41,7 +43,7 @@
 			var userName = document.querySelector('#username-input').value;
 			window.location.replace('chatroom/' + roomName + '/' + userName);
 		};
-	  </script>
+	  </script> -->
 	  
     <div class="footer">
     </div>

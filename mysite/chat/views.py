@@ -43,7 +43,6 @@ def login_request(request):
 		user = auth.authenticate(username=username,password=password)
 		if user is not None:
 			django_login(request,user)
-			messages.success(request, f" Hello {username}, You Are Successfully Logged In")
 			return redirect('room_list')
 		else:
 			if not User.objects.filter(username=username).exists():
@@ -62,6 +61,15 @@ def logout(request):
 
 @login_required
 def enter_room(request):
+    ## Enter new room with password
+    if request.method == "POST":
+        username = request.user
+        roomname = request.POST.get('roomname')
+        passwordroom = request.POST.get('passwardroom')
+        print(roomname,passwordroom)
+        ## Validate room name and password room is correct.
+        return redirect("room",username=username,room_name=roomname)
+
     ## if user enter new room who not create by yourself.
     return render(request,"chat/enter_room.html")
 
