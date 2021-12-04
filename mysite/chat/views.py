@@ -46,11 +46,9 @@ def login_request(request):
 			return redirect('room_list')
 		else:
 			if not User.objects.filter(username=username).exists():
-				messages.error(request, "Username Doesn't Exist")
 				return render(request,'chat/homepage.html',{'message3':"Username Doesn't Exist."})
 				
 			else:
-				messages.info(request, "Incorrect Password")
 				return render(request,'chat/homepage.html',{'message4':"Incorrect Password."})
 	else:
 		return render(request,'homepage.html')
@@ -65,12 +63,20 @@ def enter_room(request):
     if request.method == "POST":
         username = request.user
         roomname = request.POST.get('roomname')
-        passwordroom = request.POST.get('passwardroom')
+        passwordroom = request.POST.get('passwordroom')
         print(roomname,passwordroom)
-        ## Validate room name and password room is correct.
-        return redirect("room",username=username,room_name=roomname)
-
-    ## if user enter new room who not create by yourself.
+        ## Validate room name is correct.
+        if RoomCreate.objects.filter(room_name=roomname).exists():
+            ## check password room is correct
+            if RoomCreate.objects.filter(room_name=roomname,password_room=passwordroom).exists():
+                return redirect("room",username=username,room_name=roomname)
+            else:
+                print("Password room is incorrect.")
+                return render(request,'chat/enter_room.html',{'message1':"Password room is incorrect."})
+        else:
+            print("This room name not exist.")
+            return render(request,'chat/enter_room.html',{'message2':"This room name not exist."})
+    ## if user enter room from myroom page.
     return render(request,"chat/enter_room.html")
 
 def create_new_room(request):
@@ -99,12 +105,13 @@ def create_new_room(request):
 
 def room(request, room_name,username):
     print(username,'in room')
-    msg = Message.objects.filter(roomname_msg=room_name)[0:25]
+    msg = Message.objects.filter(roomname_msg=room_name)[0:25] ## show chat history
 
     ## check this room name is not exists
     if not RoomCreate.objects.filter(room_name=room_name).exists():
         messages.error(request, "This room name does not exist.")
         return redirect("enter_room")     
+    ## if room is exists
     else:
         get_username = User.objects.get(username=username)
         new_room = RoomCreate.objects.get(room_name=room_name)
@@ -114,7 +121,7 @@ def room(request, room_name,username):
             if not userJoin.room_joined.filter(room_name=room_name).exists():
                 userJoin.room_joined.add(new_room)
         except RoomList.DoesNotExist:
-            ## Create this username in RoomList Models after that will save in M:M field
+            ## Create this username in RoomList Models if they are new user who never create room.
             addList = RoomList.objects.create(username_id=get_username.id)
             addList.room_joined.add(new_room)
             addList.save()

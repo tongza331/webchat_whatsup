@@ -11,14 +11,11 @@
               <input id="room-name-input" name="roomname" type="text" style="width: 90%;" placeholder="Enter room name" required><br>
         <span></span>
               <!--Show error message if room does not exists -->
-              {% if messages %}
-                {% for message in messages %}
-                  <span style="color: red;"><small>{{message}}</small></span><br>
-                {% endfor %}
-              {% endif %}
+              <span style= "color: red;"><small>{{message2}}</small></span>
             </div>
             <div class="txt_field">
-              <input type="password" name="passwardroom" style="width: 90%;" placeholder="Password" required>
+              <input type="password" name="passwordroom" style="width: 90%;" placeholder="Password" required><br>
+              <span style= "color: red;"><small>{{message1}}</small></span>
         <span></span>
         <span></span>
             </div>
