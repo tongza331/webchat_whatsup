@@ -115,21 +115,24 @@ def room(request, room_name,username):
     else:
         get_username = User.objects.get(username=username)
         new_room = RoomCreate.objects.get(room_name=room_name)
-        ## if user never enter this room. it will save to RoomList models
-        try:         
-            userJoin = RoomList.objects.get(username_id=get_username.id)
-            if not userJoin.room_joined.filter(room_name=room_name).exists():
-                userJoin.room_joined.add(new_room)
-        except RoomList.DoesNotExist:
-            ## Create this username in RoomList Models if they are new user who never create room.
-            addList = RoomList.objects.create(username_id=get_username.id)
-            addList.room_joined.add(new_room)
-            addList.save()
-            return render(request, 'chat/room.html', {
-            'room_name': room_name,
-            'username':username,
-            'msg':msg
-        })
+        
+        ## not save if it your room create by yourself.
+        if not RoomCreate.objects.filter(creater_id=get_username.id,room_name=room_name).exists():
+            ## if user never enter this room. it will save to RoomList models
+            try:         
+                userJoin = RoomList.objects.get(username_id=get_username.id)
+                if not userJoin.room_joined.filter(room_name=room_name).exists():
+                    userJoin.room_joined.add(new_room)
+            except RoomList.DoesNotExist:
+                ## Create this username in RoomList Models if they are new user who never create room.
+                addList = RoomList.objects.create(username_id=get_username.id)
+                addList.room_joined.add(new_room)
+                addList.save()
+                return render(request, 'chat/room.html', {
+                'room_name': room_name,
+                'username':username,
+                'msg':msg
+            })
         return render(request, 'chat/room.html', {
                 'room_name': room_name,
                 'username':username,
