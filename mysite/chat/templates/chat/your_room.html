@@ -1,21 +1,27 @@
 {% extends 'chat/nav.html' %}
+{% load static %}
 {% block content %}
 <body>
     <div class="contain">
     <!--My create room-->
     <div class="s3"><h2>My create room</h2></div><br>
     {% for item in roomlistCreate %}
-        <button class="btn"><a href="chatroom/{{item.room_name}}/{{user.username}}" class="btn" style="width:150px;">{{item.room_name}}</a></button>
+        <button class="btn">
+            <a href="chatroom/{{item.room_name}}/{{user.username}}" class="btn" style="width:150px;">{{item.room_name}}</a>
+        </button>
     {% endfor %}
     
     <!--My enter room-->
     <div class="s4"><h2>My enter room</h2></div><br>
     {% for item in roomlistJoined %}
-    <button class="btn"><a href="chatroom/{{item.room_name}}/{{user.username}}" class="btn" style="width:150px;">{{item.room_name}}</a></button>
+        <button class="btn">
+            <a href="chatroom/{{item.room_name}}/{{user.username}}" class="btn" style="width:150px;">{{item.room_name}}</a>
+        </button>
     {% endfor %}
     </div>
     
     <div class="footer">
     </div>
+
 </body>
 {% endblock %}

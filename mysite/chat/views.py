@@ -79,6 +79,7 @@ def enter_room(request):
     ## if user enter room from myroom page.
     return render(request,"chat/enter_room.html")
 
+@login_required
 def create_new_room(request):
     ## if user create new room.
     if request.method=="POST":
@@ -103,7 +104,9 @@ def create_new_room(request):
             return redirect('room',room_name=room_name,username=username)
     return render(request,"chat/create_room.html")
 
-def room(request, room_name,username):
+## Enter room chat
+@login_required
+def room(request,room_name,username):
     print(username,'in room')
     msg = Message.objects.filter(roomname_msg=room_name)[0:25] ## show chat history
 
@@ -140,6 +143,7 @@ def room(request, room_name,username):
             })
         
 
+@login_required
 def room_list(request):
     ## show all room that user create.
     username = request.user
