@@ -1,3 +1,4 @@
+This project for CPE327: Software Engineering
 - Framework we used
     1. Frontend Framework: HTML,CSS,JS
     2. Backend Framwork: Django
